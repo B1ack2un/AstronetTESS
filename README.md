@@ -69,6 +69,6 @@ First, ensure that you have installed the following required packages:
 
 ### Bazel Installation
 
-Since Bazel can be a bit difficult to install, I am going to include a brief section here devoted to the installation process for Bazel. 
-If there are still difficulties with installing this program, then you can still use the original python scripts but I believe that the user will encounter specific
-issues with recognition of FLAGS in running the generate_input_records python file which creates the necessary TFRecords files. 
+Since Bazel can be a bit difficult to install, a brief section is devoted to the installation process for Bazel. 
+If there are still difficulties with installing this program, then it is still possible to run the original python scripts but I believe that the user will encounter specific
+issues with recognition of FLAGS in running the generate_input_records python file which creates the necessary TFRecords files for analysis. 

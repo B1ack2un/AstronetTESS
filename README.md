@@ -56,7 +56,10 @@ Full text available at [*The Astronomical Journal*](http://iopscience.iop.org/ar
 
 First, ensure that you have installed the following required packages:
 
-* **TensorFlow** ([instructions](https://www.tensorflow.org/install/))
+* **Anaconda Navigator** ([instructions](https://docs.anaconda.com/anaconda/install/windows/))
+* **PIP** ([instructions]())
+* **Python Version 3.7** ([instructions]())
+* **TensorFlow Version 1.15** ([instructions](https://www.tensorflow.org/install/))
 * **Pandas** ([instructions](http://pandas.pydata.org/pandas-docs/stable/install.html))
 * **NumPy** ([instructions](https://docs.scipy.org/doc/numpy/user/install.html))
 * **AstroPy** ([instructions](http://www.astropy.org/))

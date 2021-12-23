@@ -57,8 +57,8 @@ Full text available at [*The Astronomical Journal*](http://iopscience.iop.org/ar
 First, ensure that you have installed the following required packages:
 
 * **Anaconda Navigator** ([instructions](https://docs.anaconda.com/anaconda/install/windows/))
-* **PIP** ([instructions]())
-* **Python Version 3.7** ([instructions]())
+* **PIP** ([instructions](https://pip.pypa.io/en/stable/installation/))
+* **Python Version 3.7** ([instructions](https://stackoverflow.com/questions/61491893/i-cannot-install-tensorflow-version-1-15-through-pip))
 * **TensorFlow Version 1.15** ([instructions](https://www.tensorflow.org/install/))
 * **Pandas** ([instructions](http://pandas.pydata.org/pandas-docs/stable/install.html))
 * **NumPy** ([instructions](https://docs.scipy.org/doc/numpy/user/install.html))

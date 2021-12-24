@@ -41,7 +41,7 @@ Full text available at [*The Astronomical Journal*](http://iopscience.iop.org/ar
 [light_curve_util/](light_curve_util)
 
 * Utilities for operating on light curves. These include:
-  * Reading TESS data from `.h5` files.
+  * Reading TESS data from `.fits` files.
   * Phase folding, splitting, binning, etc.
 * In addition, some C++ implementations of light curve utilities are located in
 [light_curve_util/cc/](light_curve_util/cc).
@@ -61,14 +61,19 @@ First, ensure that you have installed the following required packages:
 * **Python Version 3.7** ([instructions](https://stackoverflow.com/questions/61491893/i-cannot-install-tensorflow-version-1-15-through-pip))
 * **TensorFlow** ([instructions](https://docs.anaconda.com/anaconda/user-guide/tasks/tensorflow/))
   - **TensorFlow V1.15** ([instructions for downgrading](https://www.tensorflow.org/install/pip))
-* **Pandas** ([instructions](http://pandas.pydata.org/pandas-docs/stable/install.html))
+* **Pandas** ([instructions](https://pandas.pydata.org/pandas-docs/stable/getting_started/install.html))
 * **NumPy** ([instructions](https://docs.scipy.org/doc/numpy/user/install.html))
 * **AstroPy** ([instructions](http://www.astropy.org/))
 * **PyDl** ([instructions](https://pypi.python.org/pypi/pydl))
-* **Bazel** ([instructions](http://pandas.pydata.org/pandas-docs/stable/install.html))
+* **Bazel** ([instructions](https://docs.bazel.build/versions/main/install-windows.html))
+* **Windows Subsystem for Linux** ([instructions](https://docs.microsoft.com/en-us/windows/wsl/install))
 
 ### Bazel Installation
 
 Since Bazel can be a bit difficult to install, a brief section is devoted to the installation process for Bazel. 
-If there are still difficulties with installing this program, then it is still possible to run the original python scripts but I believe that the user will encounter specific
-issues with recognition of FLAGS in running the generate_input_records python file which creates the necessary TFRecords files for analysis. 
+If there are still difficulties with installing this program, then it is still possible to run the original python scripts but it is possible that the user will encounter 
+specific issues with recognition of FLAGS in running the generate_input_records python file which creates the necessary TFRecords files for analysis. 
+
+The first two steps of the installation are relatively straightforward and will not be covered here. Starting from step 3, the version of Bazel to install would be 
+the latest release on GitHub. At the time of writing, this would be Bazel 4.2.2. Next, search for the file named "bazel-4.2.2-windows-x86_64.exe" and click it. A download
+should begin shortly and once completed this binary file should be moved and copied to the Astronet-Triage-master and Astronet-Vetting-master folders. Following step 4,  

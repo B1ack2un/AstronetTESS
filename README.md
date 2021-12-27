@@ -78,4 +78,6 @@ The first two steps of the installation are relatively straightforward and will 
 the latest release on GitHub. At the time of writing, this would be Bazel 4.2.2. Next, search for the file named "bazel-4.2.2-windows-x86_64.exe" and click it. A download
 should begin shortly. Once completed, this binary file should be moved and copied to the Astronet-Triage-master and Astronet-Vetting-master folders. Additionally, the binary 
 file should be renamed to "bazel.exe". Following step 4, access to this binary file should be added to the computer PATH variable in the following format:
-
+<p align="center">
+    set PATH = %PATH%; <path to the Bazel binary>
+</p>

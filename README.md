@@ -77,7 +77,9 @@ specific issues with recognition of FLAGS in running the generate_input_records 
 The first two steps of the installation are relatively straightforward and will not be covered here. Starting from step 3, the version of Bazel to install would be 
 the latest release on GitHub. At the time of writing, this would be Bazel 4.2.2. Next, search for the file named "bazel-4.2.2-windows-x86_64.exe" and click it. A download
 should begin shortly. Once completed, this binary file should be moved and copied to the Astronet-Triage-master and Astronet-Vetting-master folders. Additionally, the binary 
-file should be renamed to "bazel.exe". Following step 4, access to this binary file should be added to the computer PATH variable in the following format:
+file should be renamed to "bazel.exe". Following step 4, access to this binary file should be added through the PATH variable in the following format in the command prompt:
 <p align="center">
-    set PATH = %PATH%; <path to the Bazel binary>
+    set PATH = %PATH%; < path to the Bazel binary >
 </p>
+
+ 

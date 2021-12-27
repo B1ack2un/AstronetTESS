@@ -85,8 +85,11 @@ file should be renamed to "bazel.exe". Following step 4, access to this binary f
  However, this only works temporarily so in order to permanently set the PATH variable use this instead:
  <p align="center">
     setx PATH "i.e. path to bazel binary;%PATH%"
+</p>
+<p align="center">
     set PATH = i.e. path to Bazel binary;%PATH%	
 </p>
 
-Before testing Bazel, a couple more things need to be taken care of prior to confirmation as shown in Step 5. First, [MSYS2](/https://www.msys2.org/) needs to be installed on 
-the machine. Next, the BAZEL_SH variable needs to be defined in the environment variables. This can be found [here]().
+Before testing Bazel, a couple more things need to be taken care of prior to confirmation as shown in Step 5. 
+First, [MSYS2](/https://www.msys2.org/) needs to be installed on the machine. Next, the BAZEL_SH variable needs to be defined in the environment variables. 
+This can be found [here]().

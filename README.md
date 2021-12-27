@@ -104,7 +104,26 @@ yet.
 Prior to analyzing this code, start with opening the Astronet-Triage-master folder in the Command Prompt and running Bazel by testing the code in the various subfolders with
 the following command:
 <p align="center">
-    bazel test astronet/... light_curve_util/... third_party/... --test_arg=--test_srcdir=/path_to_Astronet-Triage-master_directory/Astronet-Triage-master/Astronet-Triage-
-    master/
+    bazel test astronet/... light_curve_util/... third_party/... --test_arg=--test_srcdir=/path_to_Astronet-Triage-master_directory/Astronet-Triage-master/Astronet-Triage-master/
 </p>
 
+It is best to check each of the major folders individually so that any errors which may arise in testing can be easily identified and corrected. 
+Once all of these folders have been verified to be correct, then the next step is to download the TESS files. 
+
+### Downloading TESS Data
+
+A *light curve* is a plot of the brightness of a star over time. We will befocusing on light curves produced by the TESS space telescope. 
+An example light curve (produced by Kepler) is shown below.
+
+![Kepler-934](docs/kepler-943.png)
+
+To train a model to identify planets in TESS light curves, you will need atraining set of labeled *Threshold Crossing Events* (TCEs). 
+A TCE is a periodic signal that has been detected in a light curve, and is associated with a *period* (the number of days between each occurrence of the detected signal),
+a *duration* (the time taken by each occurrence of the signal), an *epoch* (the time of the first observed occurrence of the signal), and possibly additional
+metadata like the signal-to-noise ratio. An example TCE is shown below. The labels are ground truth classifications (decided by humans) that indicate which
+TCEs in the training set are actual planets signals and which are caused by other phenomena.
+
+![Kepler-934 Transits](docs/kepler-943-transits.png)
+
+Since the data which will form the basis for the training set will be selected by the user, the relevant TESS data must be downloaded from the [Mikulski Archive for Space 
+Telescopes](https://archive.stsci.edu/missions-and-data/tess). This site contains all of the data relevant to the TESS mission. In order to download the .csv file for all of the recorded TCEs in the desired sector, go [here](https://archive.stsci.edu/tess/bulk_downloads.html) and click on the TCE Bulk Downloads link. From here, pick the desired sector and download the .csv file by clicking on the link next to the sector number.    

@@ -97,6 +97,6 @@ After this, step 5 can be followed for verification.
 
 ### Bazel Troubleshooting
 
-If there are more issues with installing Bazel that I can't cover, check [here](https://github.com/bazelbuild/bazel/issues) to see if your specific problem has been identified 
+If there are more issues with installing Bazel, check [here](https://github.com/bazelbuild/bazel/issues) to see if your specific problem has been identified 
 yet.
 

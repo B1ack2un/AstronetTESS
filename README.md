@@ -92,4 +92,11 @@ file should be renamed to "bazel.exe". Following step 4, access to this binary f
 
 Before testing Bazel, a couple more things need to be taken care of prior to confirmation as shown in Step 5. 
 First, [MSYS2](/https://www.msys2.org/) needs to be installed on the machine. Next, the BAZEL_SH variable needs to be defined in the environment variables. 
-This can be found [here]().
+This can be found [here](https://docs.bazel.build/versions/main/windows.html).
+After this, step 5 can be followed for verification. 
+
+### Bazel Troubleshooting
+
+If there are more issues with installing Bazel that I can't cover, check [here](https://github.com/bazelbuild/bazel/issues) to see if your specific problem has been identified 
+yet.
+

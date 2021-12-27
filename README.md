@@ -95,8 +95,16 @@ First, [MSYS2](/https://www.msys2.org/) needs to be installed on the machine. Ne
 This can be found [here](https://docs.bazel.build/versions/main/windows.html).
 After this, step 5 can be followed for verification. 
 
-### Bazel Troubleshooting
+### Installation Troubleshooting
 
 If there are more issues with installing Bazel, check [here](https://github.com/bazelbuild/bazel/issues) to see if your specific problem has been identified 
 yet.
+
+### Testing Programs
+Prior to analyzing this code, start with opening the Astronet-Triage-master folder in the Command Prompt and running Bazel by testing the code in the various subfolders with
+the following command:
+<p align="center">
+    bazel test astronet/... light_curve_util/... third_party/... --test_arg=--test_srcdir=/path_to_Astronet-Triage-master_directory/Astronet-Triage-master/Astronet-Triage-
+    master/
+</p>
 

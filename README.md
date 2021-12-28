@@ -126,4 +126,9 @@ TCEs in the training set are actual planets signals and which are caused by othe
 ![Kepler-934 Transits](docs/kepler-943-transits.png)
 
 Since the data which will form the basis for the training set will be selected by the user, the relevant TESS data must be downloaded from the [Mikulski Archive for Space 
-Telescopes](https://archive.stsci.edu/missions-and-data/tess). This site contains all of the data relevant to the TESS mission. In order to download the .csv file for all of the recorded TCEs in the desired sector, go [here](https://archive.stsci.edu/tess/bulk_downloads.html) and click on the TCE Bulk Downloads link. From here, pick the desired sector and download the .csv file by clicking on the link next to the sector number.    
+Telescopes](https://archive.stsci.edu/missions-and-data/tess). This site contains all of the data relevant to the TESS mission. In order to download the .csv file for all of the 
+recorded TCEs in the desired sector, go [here](https://archive.stsci.edu/tess/bulk_downloads.html) and click on the TCE Bulk Downloads link. From here, pick the desired sector 
+and download the .csv file by clicking on the link next to the sector number.    
+
+Next, the TIC IDs of the TCEs must be copied and pasted into a separate .txt file. This .txt file will be named sector-x-yyy.txt where x identifies the sector number of the TCE# 
+file. 

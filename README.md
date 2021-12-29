@@ -134,8 +134,36 @@ Next, the TIC IDs of the TCEs must be copied and pasted into a separate .txt fil
 file. 
 
 After saving the .txt file, the executable file must be created by navigating to the astronet/data folder and adjusting the BUILD file. This BUILD file is directly responsible 
-for the creation of the executable files which will be run in WSL. For more information on how the BUILD files work check [here](). Add the following to the BUILD file 
-running Bazel with the following command:
+for the creation of the executable files which will be run in WSL. For more information on how the BUILD files work check [here](https://docs.bazel.build/versions/main/build-ref.html). 
+Add the following lines to the BUILD file:
+
+<p align="center">
+    py_binary(
+    name="make_catalog",
+    srcs=["make_catalog.py"],
+)
+
+py_binary(
+    name="make_empty_catalog",
+    srcs=["make_empty_catalog.py"],
+)
+</p>
+
+Once completed, save the file and navigate to back to the astronet folder and run Bazel with the following command:
+
 <p align="center">
     bazel build data/...
 </p>
+
+This should produce executable files for the "make_catalog" and "make_empty_catalog" python files. Since the user will be working with data from an arbitrary sector, the 
+"make_empty_catalog" file will have to be executed first and can be run by navigating to the Astronet-Triage-master/bazel-bin/astronet/data folder in WSL and running the 
+following command:
+
+```
+./make_empty_catalog.exe --base_dir=[wherever you text file is] --input sector-[Number of sector from which file will have to be executed]-yyy.txt secto --save_dir=[wherever you want to save the output]
+```
+
+Since this python file searches for the sector number by splitting the file path by hyphens, depending the folder names the user has defined the index of the arrays will have 
+to be manually changed. After this the data folder will have to be recompiled and finally run using the previous command in WSL again. This should create a .csv file named 
+sector-x-all.csv containing the TIC ID, junk disposition and sector number in three separate columns.
+

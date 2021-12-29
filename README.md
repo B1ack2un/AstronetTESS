@@ -130,5 +130,12 @@ Telescopes](https://archive.stsci.edu/missions-and-data/tess). This site contain
 recorded TCEs in the desired sector, go [here](https://archive.stsci.edu/tess/bulk_downloads.html) and click on the TCE Bulk Downloads link. From here, pick the desired sector 
 and download the .csv file by clicking on the link next to the sector number.    
 
-Next, the TIC IDs of the TCEs must be copied and pasted into a separate .txt file. This .txt file will be named sector-x-yyy.txt where x identifies the sector number of the TCE# 
+Next, the TIC IDs of the TCEs must be copied and pasted into a separate .txt file. This .txt file will be named sector-x-yyy.txt where x identifies the sector number of the TCE 
 file. 
+
+After saving the .txt file, the executable file must be created by navigating to the astronet/data folder and adjusting the BUILD file. This BUILD file is directly responsible 
+for the creation of the executable files which will be run in WSL. For more information on how the BUILD files work check [here](). Add the following to the BUILD file 
+running Bazel with the following command:
+<p align="center">
+    bazel build data/...
+</p>

@@ -195,3 +195,42 @@ This will create a shell file which should have a fraction of download commands 
 This will run a script which should have all of the necessary files downloaded in the same folder as the shell script. 
 
 ### Process TESS Data
+
+In order to properly process the data with TensorFlow, the user needs to create training data in TFRecord format from the .csv file created above. TFRecord format consists of a 
+set of sharded files containing serialized `tf.Example` [protocol buffers](https://developers.google.com/protocol-buffers/). 
+
+The command below will generate a set of sharded TFRecord files for the TCEs in
+the training set. Each `tf.Example` proto will contain the following light curve
+representations:
+
+* `global_view`: Vector of length 201: a "global view" of the TCE.
+* `local_view`: Vector of length 81: a "local view" of the TCE.
+
+In addition, each `tf.Example` will contain the value of each column in the input TCE CSV file, including transit and stellar parameters.
+
+To generate the training set:
+
+```bash
+# Filename and path containing the CSV file of TCEs in the training set.
+TCE_CSV_FILE="astronet/tces.csv"
+
+# Directory to save output TFRecord files into.
+TFRECORD_DIR="astronet/tfrecord"
+
+# Directory where light curves are located.
+TESS_DATA_DIR="astronet/tess/"
+  
+# Run without bazel
+./generate_input_records.py \
+--input_tce_csv_file=${TCE_CSV_FILE} \
+--tess_data_dir=${TESS_DATA_DIR} \
+--output_dir=${TFRECORD_DIR} \
+--num_worker_processes=1 \
+--make_test_set
+```
+
+Note that the same multiprocessing issue from earlier still applies here. Additionally, the sector number in both the tess_io.py and preprocessing.py programs will have to be 
+changed prior to running this command.
+
+### Make Predictions
+

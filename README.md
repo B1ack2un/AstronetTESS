@@ -161,10 +161,15 @@ This should produce executable files for the "make_catalog" and "make_empty_cata
 following command:
 
 ```
-./make_empty_catalog.exe --base_dir=[wherever you text file is] --input sector-[Number of sector from which file will have to be executed]-yyy.txt secto --save_dir=[wherever you want to save the output]
+./make_empty_catalog.exe --base_dir=[wherever you text file is] --input sector-[Number of sector from which file will have to be executed]-yyy.txt --save_dir=[wherever you want to save the output]
 ```
 
 Since this python file searches for the sector number by splitting the file path by hyphens, depending the folder names the user has defined the index of the arrays will have 
 to be manually changed. After this the data folder will have to be recompiled and finally run using the previous command in WSL again. This should create a .csv file named 
 sector-x-all.csv containing the TIC ID, junk disposition and sector number in three separate columns.
 
+In order to fill in the remaining columns, the "make_catalog" python must be run using the following command:
+
+```
+./make_catalog.exe --input sector-[Number of sector from which file will have to be executed]-all.csv  --num_worker_processes=1 --base_dir=[wherever the .csv file is located] --out_name=[whatever you want to name the file with .csv attached to the end]
+```

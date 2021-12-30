@@ -142,7 +142,8 @@ Add the following lines to the BUILD file:
     name="make_catalog",
     srcs=["make_catalog.py"],
 )
-
+</p>
+<p align="center">
 py_binary(
     name="make_empty_catalog",
     srcs=["make_empty_catalog.py"],

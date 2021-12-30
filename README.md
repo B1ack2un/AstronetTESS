@@ -174,8 +174,24 @@ In order to fill in the remaining columns, the "make_catalog" executable must be
 ./make_catalog.exe --input sector-[Number of sector from which file will have to be executed]-all.csv  --tcestatfile=[Name of TCE file downloaded from MAST] --num_worker_processes=1 --base_dir=[wherever the .csv file is located] --out_name=[whatever you want to name the file with .csv attached to the end]
 ```
 
-This will create .csv file with most of the columns filled, barring some of the data processing issues. Unfortunately, I was not able to figure out the issue with the 
+This will create a .csv file with most of the columns filled, barring some of the data processing issues. Unfortunately, I was not able to figure out the issue with the 
 multiprocessing library so I have opted to use just one worker process to avoid it entirely. If a user is able to fix this issue, please notify me but should the user decide to 
 stick with a single worker process be prepared to allow the program to run for at least 4-5 hours before the complete .csv file is written. 
+
+Prior to analyzing the data on the .csv file, we have to download the light curve data files. Click [here](https://archive.stsci.edu/tess/bulk_downloads/bulk_downloads_ffi-tp-lc-dv.html) 
+and download the light curve files by clicking the link next to the relevant sector number for your data collection. Next, run the tess_shell_adjust.py file from the Anaconda 
+Prompt by entering the following command:
+
+```
+python tess_shell_adjust.py --input_csv_file=[Path to the completed .csv file] --input_sh_file=[Path to the downloaded shell file with light curve download commands] --output_sh_file=[Path where output file will be placed upon completion of the program as well as name of the output file]
+```
+
+This will create a shell file which should have a fraction of download commands in comparison to the original shell file. Run this shell file in WSL by navigating to astronet/tess/sector-x and type the following:
+
+```
+./[name of the .sh file]
+```
+
+This will run a script which should have all of the necessary files downloaded in the same folder as the shell script. 
 
 ### Process TESS Data

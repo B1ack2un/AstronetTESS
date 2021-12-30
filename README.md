@@ -168,8 +168,14 @@ Since this python file searches for the sector number by splitting the file path
 to be manually changed. After this the data folder will have to be recompiled and finally run using the previous command in WSL again. This should create a .csv file named 
 sector-x-all.csv containing the TIC ID, junk disposition and sector number in three separate columns.
 
-In order to fill in the remaining columns, the "make_catalog" python must be run using the following command:
+In order to fill in the remaining columns, the "make_catalog" executable must be run using the following command:
 
 ```
-./make_catalog.exe --input sector-[Number of sector from which file will have to be executed]-all.csv  --num_worker_processes=1 --base_dir=[wherever the .csv file is located] --out_name=[whatever you want to name the file with .csv attached to the end]
+./make_catalog.exe --input sector-[Number of sector from which file will have to be executed]-all.csv  --tcestatfile=[Name of TCE file downloaded from MAST] --num_worker_processes=1 --base_dir=[wherever the .csv file is located] --out_name=[whatever you want to name the file with .csv attached to the end]
 ```
+
+This will create .csv file with most of the columns filled, barring some of the data processing issues. Unfortunately, I was not able to figure out the issue with the 
+multiprocessing library so I have opted to use just one worker process to avoid it entirely. If a user is able to fix this issue, please notify me but should the user decide to 
+stick with a single worker process be prepared to allow the program to run for at least 4-5 hours before the complete .csv file is written. 
+
+### Process TESS Data

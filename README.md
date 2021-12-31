@@ -112,7 +112,7 @@ Once all of these folders have been verified to be correct, then the next step i
 
 ### Downloading TESS Data
 
-A *light curve* is a plot of the brightness of a star over time. We will befocusing on light curves produced by the TESS space telescope. 
+A *light curve* is a plot of the brightness of a star over time. We will be focusing on light curves produced by the TESS space telescope. 
 An example light curve (produced by Kepler) is shown below.
 
 ![Kepler-934](docs/kepler-943.png)
@@ -221,7 +221,7 @@ TFRECORD_DIR="astronet/tfrecord"
 TESS_DATA_DIR="astronet/tess/"
   
 # Run without bazel
-./generate_input_records.py \
+./generate_input_records.exe \
 --input_tce_csv_file=${TCE_CSV_FILE} \
 --tess_data_dir=${TESS_DATA_DIR} \
 --output_dir=${TFRECORD_DIR} \
@@ -234,3 +234,36 @@ changed prior to running this command.
 
 ### Make Predictions
 
+Run the following:
+
+```bash
+# Make a directory for plots
+mkdir astronet/plots
+SAVE_DIR=astronet/plots
+
+# Generate a prediction for a list of new TCEs.
+python astronet/batch_predict.py \
+  --model_dir=${MODEL_DIR} \
+  --tfrecord_dir=${TFRECORD_DIR} \
+  --suffix=yyy \
+  --average \
+  --plot \
+  --save_dir=${SAVE_DIR}
+```
+
+
+If the option `--plot` argument is included, you must also include a `--save_dir`. Plots of the global and local views of TCEs in the test set will be saved under that directory.
+
+The plot of the light curve should look something like this:
+
+![TESS TCE Plot](docs/plots6631253.png)
+
+If you trained an ensemble of models and want to use model averaging, include a `--average` argument and make sure `${MODEL_DIR}` is set to the directory that contains the 10 
+subdirectories. If there's no `--average` argument, `${MODEL_DIR}` is just the directory containing your single model.
+
+The output of this step is a file called `prediction_yyy.txt`, saved in the bazel-bin/astronet folder. This file contains the TIC ID of each object in your input list, and the 
+model's prediction of the object being a plausible planet candidate.
+
+### Vetting Process
+
+In order to properly refine the results obtained from the Triage version of the neural network, the user needs to reproduce the same steps on the Vetting Neural Network. 

@@ -252,7 +252,8 @@ python astronet/batch_predict.py \
 ```
 
 
-If the option `--plot` argument is included, you must also include a `--save_dir`. Plots of the global and local views of TCEs in the test set will be saved under that directory.
+If the option `--plot` argument is included, you must also include a `--save_dir`. Plots of the global and local views of TCEs in the test set will be saved under that 
+directory.
 
 The plot of the light curve should look something like this:
 
@@ -266,4 +267,15 @@ model's prediction of the object being a plausible planet candidate.
 
 ### Vetting Process
 
-In order to properly refine the results obtained from the Triage version of the neural network, the user needs to reproduce the same steps on the Vetting Neural Network. 
+In order to properly refine the results obtained from the Triage version of the neural network, the user needs to follow the same steps for the vetting version of the neural 
+network. The only difference in the vetting network is that when using `./batch_predict.exe` command to create a list of predictions for the list of TCEs downloaded from MAST 
+the proper averaged model is located under the `astronet/models_final/model_dc_se` folder. This model vets candidates by taking into account secondary eclipses and depth 
+changes. 
+
+### Final Checks and Outreach
+
+Planetary candidates processed by both triage and vetting networks are likely to be correct but in order to legitimize their classification, a series of steps listed 
+[here](http://www.hughosborn.co.uk/category/exoplanet-detection/) can be taken to truly verify candidates before emailing a professional astronomer about your findings. 
+
+Also, check [here](https://exofop.ipac.caltech.edu/tess/) by typing in the TIC ID into the Single Target Lookup box to verify that the candidate has not already been identified 
+as a planetary candidate. 

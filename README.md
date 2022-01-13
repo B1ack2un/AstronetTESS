@@ -3,7 +3,7 @@
 
 ## Background
 
-This directory contains TensorFlow models and data processing code for identifying exoplanets in astrophysical light curves. 
+This project contains TensorFlow models and data processing code for identifying exoplanets from astrophysical light curves. 
 This model is derived from Liang Yu's code. For a complete background on how this model works, see [Shallue & Vanderburg's paper](http://adsabs.harvard.edu/abs/2018AJ....155...94S) in
 as well as [Liang Yu's paper](https://ui.adsabs.harvard.edu/abs/2019AJ....158...25Y/abstract) in *The Astronomical Journal*.
 Both the triage and vetting networks are included in this project.
@@ -15,7 +15,7 @@ For shorter summaries, see:
 * [This great article](https://milesobrien.com/artificial-intelligence-gains-intuition-hunting-exoplanets/) by Fedor Kossakovski
 * [NASA's press release](https://www.nasa.gov/press-release/artificial-intelligence-nasa-data-used-to-discover-eighth-planet-circling-distant-star) article
 
-## Citation
+## Bibliography
 Original papers from which this project is largely derived:
 
 Yu, L. et al. (2019). Identifying Exoplanets with Deep Learning III: Automated Triage and Vetting of TESS Candidates. *The Astronomical Journal*, 158(1), 25.
@@ -50,9 +50,9 @@ Full text available at [*The Astronomical Journal*](http://iopscience.iop.org/ar
 
 * Utilities derived from third party code.
 
-## Walkthrough
+## Setup
 
-### Install Required Packages
+### Dependencies
 
 First, ensure that you have installed the following required packages:
 
@@ -78,17 +78,17 @@ The first two steps of the installation are relatively straightforward and will 
 the latest release on GitHub. At the time of writing, this would be Bazel 4.2.2. Next, search for the file named "bazel-4.2.2-windows-x86_64.exe" and click it. A download
 should begin shortly. Once completed, this binary file should be moved and copied to the Astronet-Triage-master and Astronet-Vetting-master folders. Additionally, the binary 
 file should be renamed to "bazel.exe". Following step 4, access to this binary file should be added through the PATH variable in the following format in the command prompt:
-<p align="center">
-    set PATH = %PATH%; < path to the Bazel binary >
-</p>
+```
+set PATH = %PATH%; < path to the Bazel binary >
+```
 
  However, this only works temporarily so in order to permanently set the PATH variable use this instead:
- <p align="center">
-    setx PATH "i.e. path to bazel binary;%PATH%"
-</p>
-<p align="center">
-    set PATH = i.e. path to Bazel binary;%PATH%	
-</p>
+```
+setx PATH "i.e. path to bazel binary;%PATH%"
+```
+```
+set PATH = i.e. path to Bazel binary;%PATH%	
+```
 
 Before testing Bazel, a couple more things need to be taken care of prior to confirmation as shown in Step 5. 
 First, [MSYS2](/https://www.msys2.org/) needs to be installed on the machine. Next, the BAZEL_SH variable needs to be defined in the environment variables. 
@@ -103,9 +103,9 @@ yet.
 ### Testing Programs
 Prior to analyzing this code, start with opening the Astronet-Triage-master folder in the Command Prompt and running Bazel by testing the code in the various subfolders with
 the following command:
-<p align="center">
-    bazel test astronet/... light_curve_util/... third_party/... --test_arg=--test_srcdir=/path_to_Astronet-Triage-master_directory/Astronet-Triage-master/Astronet-Triage-master/
-</p>
+```
+bazel test astronet/... light_curve_util/... third_party/... --test_arg=--test_srcdir=/path_to_Astronet-Triage-master_directory/Astronet-Triage-master/Astronet-Triage-master/
+```
 
 It is best to check each of the major folders individually so that any errors which may arise in testing can be easily identified and corrected. 
 Once all of these folders have been verified to be correct, then the next step is to download the TESS files. 
@@ -116,14 +116,16 @@ A *light curve* is a plot of the brightness of a star over time. We will be focu
 An example light curve (produced by Kepler) is shown below.
 
 ![Kepler-934](docs/kepler-943.png)
+*Image taken from [Chris Shallue's Exoplanet ML repository](https://github.com/google-research/exoplanet-ml/blob/master/exoplanet-ml/astronet/README.md#walkthrough)*
 
-To train a model to identify planets in TESS light curves, you will need atraining set of labeled *Threshold Crossing Events* (TCEs). 
+To train a model to identify planets in TESS light curves, you will need a training set of labeled *Threshold Crossing Events* (TCEs). 
 A TCE is a periodic signal that has been detected in a light curve, and is associated with a *period* (the number of days between each occurrence of the detected signal),
 a *duration* (the time taken by each occurrence of the signal), an *epoch* (the time of the first observed occurrence of the signal), and possibly additional
 metadata like the signal-to-noise ratio. An example TCE is shown below. The labels are ground truth classifications (decided by humans) that indicate which
 TCEs in the training set are actual planets signals and which are caused by other phenomena.
 
 ![Kepler-934 Transits](docs/kepler-943-transits.png)
+*Image taken from [Chris Shallue's Exoplanet ML repository](https://github.com/google-research/exoplanet-ml/blob/master/exoplanet-ml/astronet/README.md#walkthrough)*
 
 Since the data which will form the basis for the training set will be selected by the user, the relevant TESS data must be downloaded from the [Mikulski Archive for Space 
 Telescopes](https://archive.stsci.edu/missions-and-data/tess). This site contains all of the data relevant to the TESS mission. In order to download the .csv file for all of the 
@@ -137,24 +139,24 @@ After saving the .txt file, the executable file must be created by navigating to
 for the creation of the executable files which will be run in WSL. For more information on how the BUILD files work check [here](https://docs.bazel.build/versions/main/build-ref.html). 
 Add the following lines to the BUILD file:
 
-<p align="center">
+```
     py_binary(
     name="make_catalog",
     srcs=["make_catalog.py"],
 )
-</p>
-<p align="center">
+```
+```
 py_binary(
     name="make_empty_catalog",
     srcs=["make_empty_catalog.py"],
 )
-</p>
+```
 
 Once completed, save the file and navigate to back to the astronet folder and run Bazel with the following command:
 
-<p align="center">
-    bazel build data/...
-</p>
+```
+bazel build data/...
+```
 
 This should produce executable files for the "make_catalog" and "make_empty_catalog" python files. Since the user will be working with data from an arbitrary sector, the 
 "make_empty_catalog" file will have to be executed first and can be run by navigating to the Astronet-Triage-master/bazel-bin/astronet/data folder in WSL and running the 

@@ -40,7 +40,7 @@ Full text available at [*The Astronomical Journal*](http://iopscience.iop.org/ar
 
 [light_curve_util/](light_curve_util)
 
-* Utilities for operating on light curves. These include:
+* Utilities for operating on light curves:
   * Reading TESS data from `.fits` files.
   * Phase folding, splitting, binning, etc.
 * In addition, some C++ implementations of light curve utilities are located in
@@ -54,7 +54,7 @@ Full text available at [*The Astronomical Journal*](http://iopscience.iop.org/ar
 
 ### Dependencies
 
-First, ensure that you have installed the following required packages:
+First, install the following required packages:
 
 * **Anaconda Navigator** ([instructions](https://docs.anaconda.com/anaconda/install/windows/))
 * **PIP** ([instructions](https://pip.pypa.io/en/stable/installation/))
@@ -71,44 +71,36 @@ First, ensure that you have installed the following required packages:
 ### Bazel Installation
 
 Since Bazel can be a bit difficult to install, a brief section is devoted to the installation process for Bazel. 
-If there are still difficulties with installing this program, then it is still possible to run the original python scripts but it is possible that the user will encounter 
-specific issues with recognition of FLAGS in running the generate_input_records python file which creates the necessary TFRecords files for analysis. 
 
-The first two steps of the installation are relatively straightforward and will not be covered here. Starting from step 3, the version of Bazel to install would be 
-the latest release on GitHub. At the time of writing, this would be Bazel 4.2.2. Next, search for the file named "bazel-4.2.2-windows-x86_64.exe" and click it. A download
-should begin shortly. Once completed, this binary file should be moved and copied to the Astronet-Triage-master and Astronet-Vetting-master folders. Additionally, the binary 
-file should be renamed to "bazel.exe". Following step 4, access to this binary file should be added through the PATH variable in the following format in the command prompt:
-```
-set PATH = %PATH%; < path to the Bazel binary >
-```
+Bazel can be installed by following the instructions found at the link provided under the Dependencies heading. In step 3, install the latest version of Bazel, which is 4.2.2. 
+at the time of writing. Next, download the file named "bazel-4.2.2-windows-x86_64.exe," rename it "bazel.exe," and copy it in the Astronet-Triage-master and Astronet-Vetting- 
+After step 4, add the path to this file to the PATH variable with the following command:
 
- However, this only works temporarily so in order to permanently set the PATH variable use this instead:
 ```
 setx PATH "i.e. path to bazel binary;%PATH%"
 ```
+
 ```
 set PATH = i.e. path to Bazel binary;%PATH%	
 ```
 
-Before testing Bazel, a couple more things need to be taken care of prior to confirmation as shown in Step 5. 
-First, [MSYS2](/https://www.msys2.org/) needs to be installed on the machine. Next, the BAZEL_SH variable needs to be defined in the environment variables. 
-This can be found [here](https://docs.bazel.build/versions/main/windows.html).
-After this, step 5 can be followed for verification. 
+Before continuing onto step 5 and confirming that Bazel has been properly installed, install [MSYS2](/https://www.msys2.org/) and define the BAZEL_SH environment variable as shown [here](https://docs.bazel.build/versions/main/install-windows.html) under the section titled "Bazel doesn't find Bash or 
+bash.exe." 
 
 ### Installation Troubleshooting
 
-If there are more issues with installing Bazel, check [here](https://github.com/bazelbuild/bazel/issues) to see if your specific problem has been identified 
-yet.
+Check [here](https://github.com/bazelbuild/bazel/issues) for troubleshooting Bazel.
 
 ### Testing Programs
-Prior to analyzing this code, start with opening the Astronet-Triage-master folder in the Command Prompt and running Bazel by testing the code in the various subfolders with
-the following command:
+To test the code, open the Astronet-Triage-master folder in the Command Prompt and run Bazel with
+the following commands:
 ```
-bazel test astronet/... light_curve_util/... third_party/... --test_arg=--test_srcdir=/path_to_Astronet-Triage-master_directory/Astronet-Triage-master/Astronet-Triage-master/
+bazel test astronet/... --test_arg=--test_srcdir=/path_to_Astronet-Triage-master_directory/Astronet-Triage-master/Astronet-Triage-master/
+bazel test light_curve_util/... --test_arg=--test_srcdir=/path_to_Astronet-Triage-master_directory/Astronet-Triage-master/Astronet-Triage-master/
+bazel test third_party/... --test_arg=--test_srcdir=/path_to_Astronet-Triage-master_directory/Astronet-Triage-master/Astronet-Triage-master/
 ```
 
-It is best to check each of the major folders individually so that any errors which may arise in testing can be easily identified and corrected. 
-Once all of these folders have been verified to be correct, then the next step is to download the TESS files. 
+If these commands are successfully executed, the next step is to download the TESS files. 
 
 ### Downloading TESS Data
 
@@ -118,10 +110,10 @@ An example light curve (produced by Kepler) is shown below.
 ![Kepler-934](docs/kepler-943.png)
 *Image taken from [Chris Shallue's Exoplanet ML repository](https://github.com/google-research/exoplanet-ml/blob/master/exoplanet-ml/astronet/README.md#walkthrough)*
 
-To train a model to identify planets in TESS light curves, you will need a training set of labeled *Threshold Crossing Events* (TCEs). 
+To train a model to identify planets in TESS light curves, you will need a training set of labeled *Threshold Crossing Events* (TCE). 
 A TCE is a periodic signal that has been detected in a light curve, and is associated with a *period* (the number of days between each occurrence of the detected signal),
-a *duration* (the time taken by each occurrence of the signal), an *epoch* (the time of the first observed occurrence of the signal), and possibly additional
-metadata like the signal-to-noise ratio. An example TCE is shown below. The labels are ground truth classifications (decided by humans) that indicate which
+a *duration* (the time taken by each occurrence of the signal), an *epoch* (the time of the first observed occurrence of the signal), and additional
+metadata like the signal-to-noise ratio. An example TCE is shown below. The labels are verified ground truth classifications that indicate which
 TCEs in the training set are actual planets signals and which are caused by other phenomena.
 
 ![Kepler-934 Transits](docs/kepler-943-transits.png)
@@ -129,7 +121,7 @@ TCEs in the training set are actual planets signals and which are caused by othe
 
 Since the data which will form the basis for the training set will be selected by the user, the relevant TESS data must be downloaded from the [Mikulski Archive for Space 
 Telescopes](https://archive.stsci.edu/missions-and-data/tess). This site contains all of the data relevant to the TESS mission. In order to download the .csv file for all of the 
-recorded TCEs in the desired sector, go [here](https://archive.stsci.edu/tess/bulk_downloads.html) and click on the TCE Bulk Downloads link. From here, pick the desired sector 
+recorded TCEs in the desired sector, go [here](https://archive.stsci.edu/tess/bulk_downloads.html) and click on the TCE Bulk Downloads link. From there, pick the desired sector 
 and download the .csv file by clicking on the link next to the sector number.    
 
 Next, the TIC IDs of the TCEs must be copied and pasted into a separate .txt file. This .txt file will be named sector-x-yyy.txt where x identifies the sector number of the TCE 
@@ -166,7 +158,7 @@ following command:
 ./make_empty_catalog.exe --base_dir=[wherever you text file is] --input sector-[Number of sector from which file will have to be executed]-yyy.txt --save_dir=[wherever you want to save the output]
 ```
 
-Since this python file searches for the sector number by splitting the file path by hyphens, depending the folder names the user has defined the index of the arrays will have 
+Since this python file searches for the sector number by splitting the file path by hyphens, depending on the folder names the user has defined the index of the arrays will have 
 to be manually changed. After this the data folder will have to be recompiled and finally run using the previous command in WSL again. This should create a .csv file named 
 sector-x-all.csv containing the TIC ID, junk disposition and sector number in three separate columns.
 
@@ -176,11 +168,9 @@ In order to fill in the remaining columns, the "make_catalog" executable must be
 ./make_catalog.exe --input sector-[Number of sector from which file will have to be executed]-all.csv  --tcestatfile=[Name of TCE file downloaded from MAST] --num_worker_processes=1 --base_dir=[wherever the .csv file is located] --out_name=[whatever you want to name the file with .csv attached to the end]
 ```
 
-This will create a .csv file with most of the columns filled, barring some of the data processing issues. Unfortunately, I was not able to figure out the issue with the 
-multiprocessing library so I have opted to use just one worker process to avoid it entirely. If a user is able to fix this issue, please notify me but should the user decide to 
-stick with a single worker process be prepared to allow the program to run for at least 4-5 hours before the complete .csv file is written. 
+This will create a .csv file with most of the columns filled in. 
 
-Prior to analyzing the data on the .csv file, we have to download the light curve data files. Click [here](https://archive.stsci.edu/tess/bulk_downloads/bulk_downloads_ffi-tp-lc-dv.html) 
+Prior to analyzing the data in the .csv file, download the light curve data files. Click [here](https://archive.stsci.edu/tess/bulk_downloads/bulk_downloads_ffi-tp-lc-dv.html) 
 and download the light curve files by clicking the link next to the relevant sector number for your data collection. Next, run the tess_shell_adjust.py file from the Anaconda 
 Prompt by entering the following command:
 
@@ -188,7 +178,7 @@ Prompt by entering the following command:
 python tess_shell_adjust.py --input_csv_file=[Path to the completed .csv file] --input_sh_file=[Path to the downloaded shell file with light curve download commands] --output_sh_file=[Path where output file will be placed upon completion of the program as well as name of the output file]
 ```
 
-This will create a shell file which should have a fraction of download commands in comparison to the original shell file. Run this shell file in WSL by navigating to astronet/tess/sector-x and type the following:
+This will create a shell file which should have a fraction of the download commands in the original shell file. Run this shell file in WSL by navigating to astronet/tess/sector-x and typing the following:
 
 ```
 ./[name of the .sh file]
@@ -254,7 +244,7 @@ python astronet/batch_predict.py \
 ```
 
 
-If the option `--plot` argument is included, you must also include a `--save_dir`. Plots of the global and local views of TCEs in the test set will be saved under that 
+If the `--plot` argument is included, you must also include a `--save_dir` argument. Plots of the global and local views of TCEs in the test set will be saved under that 
 directory.
 
 The plot of the light curve should look something like this:
@@ -264,7 +254,7 @@ The plot of the light curve should look something like this:
 If you trained an ensemble of models and want to use model averaging, include a `--average` argument and make sure `${MODEL_DIR}` is set to the directory that contains the 10 
 subdirectories. If there's no `--average` argument, `${MODEL_DIR}` is just the directory containing your single model.
 
-The output of this step is a file called `prediction_yyy.txt`, saved in the bazel-bin/astronet folder. This file contains the TIC ID of each object in your input list, and the 
+The output of this step is a file called `prediction_yyy.txt` saved in the bazel-bin/astronet folder. This file contains the TIC ID of each object in your input list, and the 
 model's prediction of the object being a plausible planet candidate.
 
 ### Vetting Process

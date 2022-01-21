@@ -115,9 +115,6 @@ def _process_tce(tce_table):
     :return: tce with stellar params, camera and ccd columns filled
     """
 
-    if FLAGS.num_worker_processes > 1:
-        current = multiprocessing.current_process()
-
     total = len(tce_table)
     tce_table['camera'] = 0
     tce_table['ccd'] = 0
@@ -167,18 +164,6 @@ def _process_tce(tce_table):
     return tce_table
 
 
-def parallelize(data):
-    partitions = FLAGS.num_worker_processes
-    data_split = np.array_split(data, partitions)
-
-    pool = multiprocessing.Pool(processes=partitions)
-    df = pd.concat(pool.map(_process_tce, data_split))
-    pool.close()
-    pool.join()
-
-    return df
-
-
 if __name__ == '__main__':
     FLAGS, unparsed = parser.parse_known_args()
 
@@ -194,12 +179,6 @@ if __name__ == '__main__':
     if FLAGS.num_worker_processes == 1:
         tce_table = _process_tce(tce_table)
     else:
-        logger = multiprocessing.get_logger()
-        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-        ch = logging.StreamHandler(stream=sys.stdout)
-        ch.setFormatter(formatter)
-        logger.addHandler(ch)
-        logger.setLevel(logging.INFO)
-        logger.info('Process started')
-        tce_table = parallelize(tce_table)
+
+        
     tce_table.to_csv(os.path.join(FLAGS.base_dir, FLAGS.out_name))

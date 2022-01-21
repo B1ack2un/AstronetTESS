@@ -24,7 +24,6 @@ from qlp.util.gaia import GaiaCatalog
 from tsig.spacecraft import Spacecraft
 from tsig.spacecraft.geometry import LevineModel
 from tsig.mission import MissionProfile
-import multiprocessing
 import argparse
 import logging
 
@@ -115,9 +114,6 @@ def _process_tce(tce_table):
     :return: tce with stellar params, camera and ccd columns filled
     """
 
-    if FLAGS.num_worker_processes > 1:
-        current = multiprocessing.current_process()
-
     sc = Spacecraft()
     spp = 1
     model = LevineModel
@@ -176,25 +172,6 @@ def _process_tce(tce_table):
     return tce_table
 
 
-def parallelize(data):
-    # this doesn't seem to be working properly
-    partitions = FLAGS.num_worker_processes
-    data_split = np.array_split(data, partitions)
-
-    pool = multiprocessing.Pool(processes=partitions)
-    async_results = [
-      pool.apply_async(_process_tce, chunk)
-      for chunk in data_split
-    ]
-    pool.close()
-
-    # Instead of pool.join(), we call async_result.get() to ensure any exceptions
-    # raised by the worker processes are also raised here.
-    for async_result in async_results:
-        async_result.get()
-
-    return async_results
-
 
 if __name__ == '__main__':
     FLAGS, unparsed = parser.parse_known_args()
@@ -216,5 +193,5 @@ if __name__ == '__main__':
     if FLAGS.num_worker_processes == 1:
         tce_table = _process_tce(tce_table)
     else:
-        tce_table = parallelize(tce_table, _process_tce)
+        
     tce_table.to_csv('/pdo/users/yuliang/ebclassify/astronet/astronet/bad_tces_filled.csv')

@@ -269,5 +269,5 @@ changes.
 Planetary candidates processed by both triage and vetting networks are likely to be correct but in order to legitimize their classification, a series of steps listed 
 [here](http://www.hughosborn.co.uk/category/exoplanet-detection/) can be taken to truly verify candidates before emailing a professional astronomer about your findings. 
 
-Also, check [here](https://exofop.ipac.caltech.edu/tess/) by typing in the TIC ID into the Single Target Lookup box to verify that the candidate has not already been identified 
+Also, check [here](https://exofop.ipac.caltech.edu/tess/) by typing the TIC ID into the Single Target Lookup box to verify that the candidate has not already been identified 
 as a planetary candidate. 

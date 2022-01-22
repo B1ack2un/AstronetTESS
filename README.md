@@ -72,8 +72,10 @@ First, install the following required packages:
 
 Since Bazel can be a bit difficult to install, a brief section is devoted to the installation process for Bazel. 
 
-Bazel can be installed by following the instructions found at the link provided under the Dependencies heading. In step 3, install the latest version of Bazel, which is 4.2.2. 
-at the time of writing. Next, download the file named "bazel-4.2.2-windows-x86_64.exe," rename it "bazel.exe," and copy it in the Astronet-Triage-master and Astronet-Vetting- 
+Bazel can be installed by following the instructions found at the link provided under the Dependencies heading. In step 3, install the latest version of Bazel, which is 5.0.0 
+at the time of writing by downloading the file named "bazel-5.0.0-windows-x86_64.exe". Next, rename it "bazel.exe," and copy the binary file in the Astronet-Triage-master and 
+Astronet-Vetting-master folders.
+
 After step 4, add the path to this file to the PATH variable with the following command:
 
 ```
@@ -84,7 +86,8 @@ setx PATH "i.e. path to bazel binary;%PATH%"
 set PATH = i.e. path to Bazel binary;%PATH%	
 ```
 
-Before continuing onto step 5 and confirming that Bazel has been properly installed, install [MSYS2](/https://www.msys2.org/) and define the BAZEL_SH environment variable as shown [here](https://docs.bazel.build/versions/main/install-windows.html) under the section titled "Bazel doesn't find Bash or 
+Before continuing onto step 5 and confirming that Bazel has been properly installed, install [MSYS2](/https://www.msys2.org/) and define the BAZEL_SH environment variable as 
+shown [here](https://docs.bazel.build/versions/main/install-windows.html) under the section titled "Bazel doesn't find Bash or 
 bash.exe." 
 
 ### Installation Troubleshooting
@@ -124,11 +127,11 @@ Telescopes](https://archive.stsci.edu/missions-and-data/tess). This site contain
 recorded TCEs in the desired sector, go [here](https://archive.stsci.edu/tess/bulk_downloads.html) and click on the TCE Bulk Downloads link. From there, pick the desired sector 
 and download the .csv file by clicking on the link next to the sector number.    
 
-Next, the TIC IDs of the TCEs must be copied and pasted into a separate .txt file. This .txt file will be named sector-x-yyy.txt where x identifies the sector number of the TCE 
-file. 
+Next, the TIC IDs of the TCEs must be copied and pasted into a separate file using Notepad. This file will be named sector-x-yyy.txt where x identifies the sector number of the 
+TCE file. 
 
 After saving the .txt file, the executable file must be created by navigating to the astronet/data folder and adjusting the BUILD file. This BUILD file is directly responsible 
-for the creation of the executable files which will be run in WSL. For more information on how the BUILD files work check [here](https://docs.bazel.build/versions/main/build-ref.html). 
+for the creation of the executable files which will be run in WSL.
 Add the following lines to the BUILD file:
 
 ```
@@ -144,6 +147,10 @@ py_binary(
 )
 ```
 
+For those interested, click [here](https://docs.bazel.build/versions/main/build-ref.html) to understand how BUILD files work. 
+
+
+
 Once completed, save the file and navigate to back to the astronet folder and run Bazel with the following command:
 
 ```
@@ -158,9 +165,9 @@ following command:
 ./make_empty_catalog.exe --base_dir=[wherever you text file is] --input sector-[Number of sector from which file will have to be executed]-yyy.txt --save_dir=[wherever you want to save the output]
 ```
 
-Since this python file searches for the sector number by splitting the file path by hyphens, depending on the folder names the user has defined the index of the arrays will have 
-to be manually changed. After this the data folder will have to be recompiled and finally run using the previous command in WSL again. This should create a .csv file named 
-sector-x-all.csv containing the TIC ID, junk disposition and sector number in three separate columns.
+Since this python file searches for the sector number by splitting the file path by hyphens, depending on the folder names the user has defined for the project the index of the 
+arrays in the code may have to be manually adjusted. After this the data folder will have to be recompiled and finally run using the previous command in WSL again. This should 
+create a .csv file named sector-x-all.csv containing the TIC ID, junk disposition and sector number in three separate columns.
 
 In order to fill in the remaining columns, the "make_catalog" executable must be run using the following command:
 
@@ -178,7 +185,8 @@ Prompt by entering the following command:
 python tess_shell_adjust.py --input_csv_file=[Path to the completed .csv file] --input_sh_file=[Path to the downloaded shell file with light curve download commands] --output_sh_file=[Path where output file will be placed upon completion of the program as well as name of the output file]
 ```
 
-This will create a shell file which should have a fraction of the download commands in the original shell file. Run this shell file in WSL by navigating to astronet/tess/sector-x and typing the following:
+This will create a shell file which should have a fraction of the download commands in the original shell file. Run this shell file in WSL by navigating to astronet/tess/sector-
+x and typing the following:
 
 ```
 ./[name of the .sh file]
